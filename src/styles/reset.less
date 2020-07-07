@@ -1,0 +1,232 @@
+@import url('./var.less');
+
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  box-sizing: border-box;
+}
+html, body, #app {
+  height: 100%;
+  color: #333;
+  font-size: 14px;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+h2 {
+  font-size: 18px;
+}
+
+h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+em, i {
+  font-style: normal;
+}
+
+input,
+textarea,
+button[type='text'],
+button[type='textarea'] {
+  caret-color: @primary-color;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  vertical-align: middle;
+}
+
+.tc {
+  text-align: center;
+}
+
+.cursor {
+  cursor: pointer;
+  user-select: none;
+}
+
+/* 一行显示，溢出显示省略号 */
+.oneline {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+	-webkit-line-clamp: 1;
+	overflow: hidden;
+}
+
+/* 两行显示, 溢出显示省略号 */
+.twoline {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+	-webkit-line-clamp: 2;
+	overflow: hidden;
+}
+
+.flex {
+  display: flex;
+}
+
+.iflex {
+  display: inline-flex !important;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.dir-c {
+  .flex();
+  flex-direction: column;
+}
+
+.flex-wrap {
+  .flex();
+  flex-wrap: wrap;
+}
+.ali-c {
+  .flex();
+  align-items: center;
+}
+
+.jus-c {
+  .flex();
+  justify-content: center;
+}
+
+.jus-b {
+  .flex();
+  justify-content: space-between;
+}
+.jus-a {
+  .flex();
+  justify-content: space-around;
+}
+
+.jus-e {
+  .flex();
+  justify-content: flex-end;
+}
+
+.jus-s {
+  .flex();
+  justify-content: flex-start;
+}
+
+.flex-sc {
+  .flex();
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex-sa {
+  .flex();
+  justify-content: space-around;
+  align-items: center;
+}
+
+.flex-c {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mt0 {
+  margin-top: 10px !important;
+}
+
+.mb0 {
+  margin-bottom: 0px !important;
+}
+
+.ml0 {
+  margin-left: 0px !important;
+}
+
+.mr0 {
+  margin-right: 0px !important;
+}
+
+.mt10 {
+  margin-top: 10px !important;
+}
+
+.mb10 {
+  margin-bottom: 10px !important;
+}
+
+.ml10 {
+  margin-left: 10px !important;
+}
+
+.mr10 {
+  margin-right: 10px !important;
+}
+
+.mt20 {
+  margin-top: 20px !important;
+}
+
+.mb20 {
+  margin-bottom: 20px !important;
+}
+
+.ml20 {
+  margin-left: 20px !important;
+}
+
+.mr20 {
+  margin-right: 20px !important;
+}
+
+.w100 {
+  width: 100% !important;
+}
+
+.custom-scroll {
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  /*滚动条滑块*/
+  &::-webkit-scrollbar-thumb {
+    background: #bbb;
+    visibility: hidden;
+  }
+  /*滚动条轨道*/
+  &::-webkit-scrollbar-track {
+    background: #d6d6d6;
+    visibility: hidden;
+  }
+  &:hover {
+    &::-webkit-scrollbar-thumb,
+    &::-webkit-scrollbar-track {
+      visibility: visible;
+    }
+  }
+}
+
+.g__page-wrapper {
+  padding: 20px 0;
+  text-align: right;
+}
+
+/* 重写nprogress的颜色 */
+#nprogress .bar {
+  background: @primary-color !important;
+}
+#nprogress .peg {
+  display: block;
+  position: absolute;
+  right: 0px;
+  width: 100px;
+  height: 100%;
+  box-shadow: 0 0 10px @primary-color, 0 0 5px @primary-color !important;
+}
