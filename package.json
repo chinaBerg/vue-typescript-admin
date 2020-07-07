@@ -1,6 +1,20 @@
 {
-  "name": "robot-controller-center",
+  "name": "vue-typescript-admin",
   "version": "0.1.0",
+  "description": "基于Vue+Ts+ElementUi的RBAC后台管理系统",
+  "keywords": [
+    "vue-typescript-admin",
+    "vue ts",
+    "vue admin",
+    "vue typescript",
+    "vue typescript admin",
+    "vue element-ui"
+  ],
+  "files": [
+    "src",
+    "public",
+    "tests"
+  ],
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
@@ -51,5 +65,6 @@
     "less-loader": "^5.0.0",
     "typescript": "~3.9.3",
     "vue-template-compiler": "^2.6.11"
-  }
+  },
+  "license": "MIT"
 }
