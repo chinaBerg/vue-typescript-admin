@@ -1,34 +1,23 @@
-# robot-controller-center
+# vue-typescript-admin
 
-## Project setup
-```
+> 基于Vue+typescript+ElementUi技术栈的RBAC后台管理系统模板
+
+## 使用
+
+```bash
+# 安装依赖
 npm install
-```
 
-### Compiles and hot-reloads for development
-```
+# 运行
 npm run serve
+
+# 构建dev项目
+npm run build:dev
+
+# 构建生产项目
+npm run build:prod
 ```
 
-### Compiles and minifies for production
-```
-npm run build
-```
+### 协议
 
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+[MIT](./LICENSE)
