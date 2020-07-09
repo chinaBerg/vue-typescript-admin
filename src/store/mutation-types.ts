@@ -1,3 +1,9 @@
+/**
+ * Mutation-Types of module App
+ */
+/** 菜单展开收起 */
+export const TOGGLE_COLLAPSE = 'TOGGLE_COLLAPSE';
+
 // account
 export const SET_TOKEN = 'SET_TOKEN';
 export const RESET_TOKEN = 'RESET_TOKEN';

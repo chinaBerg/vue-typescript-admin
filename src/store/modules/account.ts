@@ -4,8 +4,6 @@ import {
 } from 'vuex-module-decorators';
 import { getToken } from '@/utils/token';
 import { RouteConfig } from 'vue-router';
-import { dynamicRoutes, route404 } from '@/router';
-import { cloneDeep } from 'lodash';
 import { Account as AccountInterface } from '@/interface';
 import * as types from '../mutation-types';
 
@@ -16,9 +14,6 @@ interface State {
   userAuths: UserRoutes;
   userRoutes: UserRoutes;
 }
-
-const pickRouteByName = (routes: RouteConfig[], name: string | undefined) => (routes || [])
-  .find((route) => route.name === name);
 
 @Module({
   dynamic: true, namespaced: true, name: 'account', store,
@@ -77,31 +72,6 @@ class Account extends VuexModule implements State {
   @Mutation
   private [types.SET_USER_AUTHS](auths: UserRoutes = []) {
     this.userAuths = auths;
-  }
-
-  /**
-   * 生成异步路由
-   * @description 根据用户的权限列表，从路由字典里面匹配出正确的路由
-   */
-  @Mutation
-  private [types.GENERATE_USER_ROUTES]() {
-    const routes: any = [];
-    if (this.userAuths && this.userAuths.length) {
-      this.userAuths.forEach((auth) => {
-        const curRoute = pickRouteByName(dynamicRoutes, auth.name);
-        if (curRoute) {
-          const authChild = auth.children || [];
-          const pickRoute = (route: RouteConfig) => pickRouteByName(authChild, route.name);
-          curRoute.children = (curRoute.children as RouteConfig[]).filter(pickRoute);
-          routes.push(curRoute);
-        }
-      });
-    }
-    this.menuData = cloneDeep(routes);
-
-    // 404页面需要放在最后
-    routes.push(route404);
-    this.userRoutes = routes;
   }
 
   @Mutation

@@ -44,7 +44,7 @@ import { TheBaseLayout } from '@/components';
 import RobotDialog from './components/RobotDialog.vue';
 
 @Component({
-  name: 'Robot',
+  name: 'Dashboard',
   components: {
     TheBaseLayout,
     RobotDialog,

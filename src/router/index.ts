@@ -1,20 +1,11 @@
 import Vue from 'vue';
-import VueRouter, { RouteConfig } from 'vue-router';
+import VueRouter from 'vue-router';
 import routerPermission from './permission';
 
 // 常量路由
-import constantRoutes, { route404 } from './modules/constantRoutes';
+import constantRoutes from './modules/constantRoutes';
 // 各模块路由
-import controllCenter from './modules/controllCenter';
-import developCenter from './modules/developCenter';
-import workplace from './modules/workplace';
-
-// 动态路由
-const dynamicRoutes: RouteConfig[] = [
-  ...controllCenter,
-  ...developCenter,
-  ...workplace,
-];
+import dynamicRoutes from './modules/dynamicRoutes';
 
 Vue.use(VueRouter);
 
@@ -24,7 +15,7 @@ Vue.use(VueRouter);
  */
 const createRouter = () => new VueRouter({
   mode: 'history',
-  routes: constantRoutes,
+  routes: [...dynamicRoutes, ...constantRoutes],
 });
 
 const router = createRouter();
@@ -33,11 +24,5 @@ const router = createRouter();
  * 注册路由的权限
  */
 routerPermission(router);
-
-export {
-  route404,
-  dynamicRoutes,
-  constantRoutes,
-};
 
 export default router;

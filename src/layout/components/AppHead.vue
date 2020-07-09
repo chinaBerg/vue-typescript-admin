@@ -1,6 +1,9 @@
 <template>
   <div class="app-head">
-    <el-menu :default-active="currentHeadMenu.name" mode="horizontal">
+    <div class="head__toggle ali-c">
+      <i :class="iconClasss" @click="toggleNav"></i>
+    </div>
+    <!-- <el-menu :default-active="currentHeadMenu.name" mode="horizontal">
       <el-menu-item
         v-for="(item, index) in userMenuData"
         :key="index"
@@ -8,39 +11,29 @@
         @click="onMenuClick(item)">
         {{item.meta.title}}
       </el-menu-item>
-    </el-menu>
+    </el-menu> -->
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch } from 'vue-property-decorator';
-import { AccountModule } from '@/store';
-import { SET_CURRENT_HEAD_MENU } from '@/store/mutation-types';
+import { Vue, Component } from 'vue-property-decorator';
+import { AppModule } from '@/store';
+import * as types from '@/store/mutation-types';
 
 @Component({ name: 'AppHead' })
 export default class extends Vue {
   private activeIndex: string | null = null
 
-  get userMenuData() {
-    return AccountModule.menuData;
+  private get navCollapse() {
+    return AppModule.navCollapse;
   }
 
-  get currentHeadMenu() {
-    if (!AccountModule.currentHeadMenu) return {};
-    return AccountModule.currentHeadMenu;
+  private get iconClasss() {
+    return ['toggle__icon', !this.navCollapse ? 'el-icon-s-fold' : 'el-icon-s-unfold'];
   }
 
-  private onMenuClick(menu) {
-    AccountModule[SET_CURRENT_HEAD_MENU](menu.name);
-  }
-
-  @Watch('$route', { immediate: true })
-  onRouteChange() {
-    const { matched } = this.$route;
-    const [matchedLevel1Menu] = matched;
-    if (matchedLevel1Menu) {
-      AccountModule[SET_CURRENT_HEAD_MENU](matchedLevel1Menu.name as string);
-    }
+  private toggleNav() {
+    AppModule[types.TOGGLE_COLLAPSE](!this.navCollapse);
   }
 }
 </script>
@@ -52,17 +45,22 @@ export default class extends Vue {
     height: @app-head-height;
     padding: 0 14px;
     background: #fff;
-    box-shadow: 0 1px 4px rgba(0,21,41,.08);
+    box-shadow: 0 2px 3px 0 rgba(100,100,100,0.06);
     z-index: 10;
-    /deep/ .el-menu-item {
-      font-size: 18px;
-      color: #333;
-      &.is-active {
-        color: @primary-color !important;
-        background: @primary-bg !important;
-      }
-      &:hover {
-        color: @primary-color !important;
+    .head__toggle {
+      height: 100%;
+      .toggle__icon {
+        width: 28px;
+        height: 28px;
+        text-align: center;
+        line-height: 28px;
+        font-size: 24px;
+        user-select: none;
+        cursor: pointer;
+        color: #6b6b6b;
+        &:hover {
+          color: @primary-color;
+        }
       }
     }
   }

@@ -1,12 +1,10 @@
 <template>
   <section class="app-page-contianer">
-    <transition name="fade-transform" mode="out-in">
-      <keep-alive :include="cached">
-        <div class="app-page-padding">
-          <router-view class="app-page-content" />
-        </div>
-      </keep-alive>
-    </transition>
+    <keep-alive :include="cached">
+      <transition name="fade-transform" mode="out-in">
+        <router-view class="app-page-content" />
+      </transition>
+    </keep-alive>
   </section>
 </template>
 
@@ -27,13 +25,9 @@ export default class extends Vue {
   height: calc(100vh - @app-head-height);
   overflow-x: hidden;
   overflow: auto;
-  .app-page-padding {
-    height: 100%;
-    padding: 14px;
-  }
   .app-page-content {
+    height: 100%;
     min-height: 100%;
-    padding: 12px;
   }
 }
 </style>
