@@ -2,87 +2,134 @@ import store from '@/store/store';
 import {
   VuexModule, Module, getModule, Action, Mutation,
 } from 'vuex-module-decorators';
-import { getToken } from '@/utils/token';
+import { getToken, setToken, resetToken } from '@/utils/token';
+import { dynamicRoutes } from '@/router';
+import { Account } from '@/interface';
 import { RouteConfig } from 'vue-router';
-import { Account as AccountInterface } from '@/interface';
 import * as types from '../mutation-types';
 
-type UserRoutes = RouteConfig[] | null
+// type UserRoutes = RouteConfig[] | null
 
-interface State {
-  userToken: AccountInterface.UserToken;
-  userAuths: UserRoutes;
-  userRoutes: UserRoutes;
-}
+/**
+ * deepRoutes 递归异步路由，筛选当前用户角色支持的路由
+ * @param routes 异步路由数组
+ * @param userRoles 当前用户角色
+ * @returns { Array<router> } 返回当前用户角色的所有路由
+ */
+const deepRoutes = (
+  routes: RouteConfig[],
+  userRoles: string[],
+) => routes.filter((route: RouteConfig) => {
+  const auths = route.meta && route.meta.permission;
+  let isInclude = true;
+  if (auths && auths.length) {
+    isInclude = auths.some((auth) => userRoles.includes(auth));
+  }
+  if (route.children && route.children.length) {
+    deepRoutes(route.children, userRoles);
+  }
+  return isInclude;
+});
 
 @Module({
-  dynamic: true, namespaced: true, name: 'account', store,
+  dynamic: true,
+  namespaced: true,
+  name: 'account',
+  store,
 })
-class Account extends VuexModule implements State {
-  // 用户token
-  public userToken = getToken() || ''
+class AccountModule extends VuexModule {
+  /** 用户token */
+  public userToken: Account.UserToken | null = getToken() || null
 
-  /** 用户的权限列表 */
-  public userAuths: UserRoutes = null
+  /** 用户详情 */
+  public userinfo: Account.Userinfo | null = null;
 
-  /** 用户的路由列表 */
-  public userRoutes: UserRoutes = null
+  public userRoutes: RouteConfig[] = []
 
-  /** 用户菜单数据 */
-  public menuData: UserRoutes = null
+  /** 是否登录成功 */
+  public get loginSuccess(): boolean {
+    if (this.userinfo && this.userinfo.id) return true;
+    return false;
+  }
 
-  /** 用户当前选中的头部菜单项 */
-  public currentHeadMenu: RouteConfig | null = null
-
-  /** 是否生成路由成功 */
-  public get isRoutesGenerated() {
-    return this.userRoutes !== null;
+  public get userRoles(): string[] {
+    if (!this.userinfo) return [];
+    return this.userinfo.roles || [];
   }
 
   /**
-   * 从api获取用户的权限列表
+   * login
+   * @description 模拟登录
    */
   @Action({ rawError: true })
-  async getUserAuths() {
-    return new Promise((resolve) => {
+  async login() {
+    return new Promise((resolve, reject) => {
       try {
-        import('../../mook/routerData').then((res) => {
-          this.context.commit(types.SET_USER_AUTHS, res.default);
+        setTimeout(() => {
+          this[types.SET_TOKEN]('HSJKJHAJKSBABHKAHJKSJKAHKJ#*((H@#SZXZXXZ');
           resolve();
-        });
+        }, 800);
       } catch (error) {
-        throw error.message || '获取用户权限失败';
+        reject(error.messgae || '获取用户权限失败');
       }
     });
   }
 
   /**
-   * 生成用户的路由
+   * login
+   * @description 获取用户详情
    */
   @Action({ rawError: true })
-  async genUserRoutes() {
-    try {
-      await this.getUserAuths();
-      this[types.GENERATE_USER_ROUTES]();
-    } catch (error) {
-      throw '生成路由配置失败';
-    }
-  }
-
-  @Mutation
-  private [types.SET_USER_AUTHS](auths: UserRoutes = []) {
-    this.userAuths = auths;
-  }
-
-  @Mutation
-  [types.SET_CURRENT_HEAD_MENU](routeName: string) {
-    if (this.menuData) {
-      const currentMenu = this.menuData.find((item: RouteConfig) => item.name === routeName);
-      if (currentMenu) {
-        this.currentHeadMenu = currentMenu;
+  async getUserinfo() {
+    return new Promise((resolve, reject) => {
+      try {
+        setTimeout(() => {
+          const userinfo: Account.Userinfo = {
+            id: 1,
+            name: '王小明',
+            account: 'admin',
+            roles: ['admin'],
+          };
+          this[types.SET_USERINFO](userinfo);
+          resolve();
+        }, 800);
+      } catch (error) {
+        reject(error.messgae || '获取用户信息失败');
       }
-    }
+    });
+  }
+
+  /**
+   * login
+   * @description 模拟登录
+   */
+  @Action({ rawError: true })
+  async generateRoutes() {
+    const userRoutes = deepRoutes(dynamicRoutes, this.userRoles);
+    this[types.GEN_ROUTES](userRoutes);
+  }
+
+  @Mutation
+  private [types.SET_TOKEN](userToken: string) {
+    this.userToken = userToken;
+    setToken(userToken);
+  }
+
+  @Mutation
+  private [types.RESET_TOKEN]() {
+    this.userToken = null;
+    resetToken();
+  }
+
+  @Mutation
+  private [types.SET_USERINFO](userinfo: any) {
+    this.userinfo = userinfo;
+  }
+
+  @Mutation
+  private [types.GEN_ROUTES](routes: RouteConfig[]) {
+    this.userRoutes = routes;
   }
 }
 
-export default getModule(Account);
+export default getModule(AccountModule);

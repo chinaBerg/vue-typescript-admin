@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import routerPermission from './permission';
 
 // 常量路由
-import constantRoutes from './modules/constantRoutes';
+import constantRoutes, { error404 } from './modules/constantRoutes';
 // 各模块路由
 import dynamicRoutes from './modules/dynamicRoutes';
 
@@ -15,7 +15,7 @@ Vue.use(VueRouter);
  */
 const createRouter = () => new VueRouter({
   mode: 'history',
-  routes: [...dynamicRoutes, ...constantRoutes],
+  routes: [...constantRoutes],
 });
 
 const router = createRouter();
@@ -26,3 +26,8 @@ const router = createRouter();
 routerPermission(router);
 
 export default router;
+
+export {
+  dynamicRoutes,
+  error404,
+};

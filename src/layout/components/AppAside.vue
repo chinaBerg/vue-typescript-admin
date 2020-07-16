@@ -7,7 +7,7 @@
       </router-link>
     </div>
 
-    <div class="app-aside__nav flex1 custom-scroll">
+    <!-- <div class="app-aside__nav flex1 custom-scroll">
       <el-menu
         default-active="2"
         class="el-menu-vertical-demo"
@@ -32,42 +32,42 @@
           <span slot="title">设置</span>
         </el-menu-item>
       </el-menu>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
-import { AccountModule, AppModule } from '@/store';
-import { RouteConfig } from 'vue-router';
+// import { AccountModule } from '@/store';
+// import { RouteConfig } from 'vue-router';
 
 @Component({ name: 'AppHead' })
 export default class extends Vue {
-  private get navCollapse() {
-    return AppModule.navCollapse;
-  }
+  // private get navCollapse() {
+  //   return AppModule.navCollapse;
+  // }
 
-  /**
-   * menuData 菜单数据
-   */
-  get menuData(): RouteConfig[] {
-    const { currentHeadMenu } = AccountModule;
-    if (!currentHeadMenu || !currentHeadMenu.children) return [];
-    return currentHeadMenu.children;
-  }
+  // /**
+  //  * menuData 菜单数据
+  //  */
+  // get menuData(): RouteConfig[] {
+  //   const { currentHeadMenu } = AccountModule;
+  //   if (!currentHeadMenu || !currentHeadMenu.children) return [];
+  //   return currentHeadMenu.children;
+  // }
 
-  /**
-   * onMenuItemClick：左侧菜单项的点击事件
-   * @description 若在当前项，再次点击不跳转；否则跳转对应路由
-   * @param { RouteConfig } menuItem 菜单项数据
-   */
-  private onMenuItemClick(menuItem: RouteConfig): void {
-    if (menuItem.name !== this.$route.name) {
-      this.$router.push({
-        name: menuItem.name,
-      });
-    }
-  }
+  // /**
+  //  * onMenuItemClick：左侧菜单项的点击事件
+  //  * @description 若在当前项，再次点击不跳转；否则跳转对应路由
+  //  * @param { RouteConfig } menuItem 菜单项数据
+  //  */
+  // private onMenuItemClick(menuItem: RouteConfig): void {
+  //   if (menuItem.name !== this.$route.name) {
+  //     this.$router.push({
+  //       name: menuItem.name,
+  //     });
+  //   }
+  // }
 }
 </script>
 

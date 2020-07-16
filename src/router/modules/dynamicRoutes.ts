@@ -11,6 +11,7 @@ const routes: RouteConfig[] = [
     meta: {
       title: 'Dashboard',
       frameIn: true,
+      permission: ['admin', 'operator'],
     },
   },
 ];
