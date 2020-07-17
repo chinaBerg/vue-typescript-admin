@@ -3,7 +3,7 @@ import {
   VuexModule, Module, getModule, Action, Mutation,
 } from 'vuex-module-decorators';
 import { getToken, setToken, resetToken } from '@/utils/token';
-import { dynamicRoutes } from '@/router';
+import { dynamicRoutes, error404 } from '@/router';
 import { Account } from '@/interface';
 import { RouteConfig } from 'vue-router';
 import * as types from '../mutation-types';
@@ -70,7 +70,27 @@ class AccountModule extends VuexModule {
           resolve();
         }, 800);
       } catch (error) {
-        reject(error.messgae || '获取用户权限失败');
+        reject(error.messgae || '登录失败');
+      }
+    });
+  }
+
+  /**
+   * logout
+   * @description 退出登录
+   */
+  @Action({ rawError: true })
+  async logout() {
+    return new Promise((resolve, reject) => {
+      try {
+        setTimeout(() => {
+          this[types.RESET_TOKEN]();
+          this[types.SET_USERINFO](null);
+          this[types.GEN_ROUTES]([]);
+          resolve();
+        }, 800);
+      } catch (error) {
+        reject(error.messgae || '退出登录失败');
       }
     });
   }
@@ -101,11 +121,12 @@ class AccountModule extends VuexModule {
 
   /**
    * login
-   * @description 模拟登录
+   * @description 生成用户的路由数组
    */
   @Action({ rawError: true })
   async generateRoutes() {
     const userRoutes = deepRoutes(dynamicRoutes, this.userRoles);
+    userRoutes.push(error404);
     this[types.GEN_ROUTES](userRoutes);
   }
 

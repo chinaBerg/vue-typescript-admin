@@ -5,7 +5,7 @@ const routers: RouteConfig[] = [
   {
     path: '/login',
     name: 'Login',
-    component: () => import(/* webpackChunkName: "other" */ '../../views/Login/index.vue'),
+    component: () => import(/* webpackChunkName: "other" */ '@/views/Login/index.vue'),
     meta: {
       title: '系统登录',
       frameIn: false,

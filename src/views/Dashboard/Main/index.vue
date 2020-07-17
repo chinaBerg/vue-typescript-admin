@@ -55,7 +55,6 @@ export default class extends Vue {
 </script>
 
 <style lang="less" scoped>
-  @import url('../../styles/var.less');
   .page-dashboard-container {
     .dashboard__item {
       padding: 20px;

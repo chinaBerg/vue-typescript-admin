@@ -155,7 +155,7 @@ export default class extends Vue {
 </script>
 
 <style lang="less" scoped>
-  @import url('../../../styles/var.less');
+  @import url('../../../../styles/var.less');
   .robot__dialog {
     /deep/ .el-dialog__body {
       padding-top: 0;
