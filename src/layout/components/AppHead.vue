@@ -5,9 +5,11 @@
     </div>
 
     <div class="head__infos ali-c">
-      <div class="head__icon mr20">
+      <div class="head__icon flex-c mr10">
         <i class="el-icon-bell"></i>
       </div>
+
+      <TheScreenfull class="mr10" />
 
       <el-dropdown placement="bottom-end" @command="handleCommand">
         <div class="head__avator-wrap ali-c">
@@ -29,9 +31,15 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator';
 import { AppModule, AccountModule } from '@/store';
+import { TheScreenfull } from '@/components';
 import * as types from '@/store/mutation-types';
 
-@Component({ name: 'AppHead' })
+@Component({
+  name: 'AppHead',
+  components: {
+    TheScreenfull,
+  },
+})
 export default class extends Vue {
   private activeIndex: string | null = null
 
@@ -102,6 +110,8 @@ export default class extends Vue {
         color: @primary-color;
       }
     }
+
+    /* 头像区 */
     .head__avator-wrap {
       cursor: pointer;
       user-select: none;
