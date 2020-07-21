@@ -1,13 +1,20 @@
 <template>
   <div class="app-head jus-b ali-c">
     <div class="head__toggle ali-c">
-      <i :class="iconClasss" @click="$emit('toggle')"></i>
+      <SvgIcon
+        :icon="iconClasss"
+        class="cursor"
+        size="22px"
+        @click="$emit('toggle')"
+      />
     </div>
 
     <div class="head__infos ali-c">
-      <div class="head__icon flex-c mr10">
-        <i class="el-icon-bell"></i>
-      </div>
+      <SvgIcon
+        icon="vtaicon__notice"
+        size="22px"
+        class="mr10 cursor"
+      />
 
       <TheScreenfull class="mr10" />
 
@@ -48,7 +55,7 @@ export default class extends Vue {
   }
 
   private get iconClasss() {
-    return ['toggle__icon', !this.navCollapse ? 'el-icon-s-fold' : 'el-icon-s-unfold'];
+    return !this.navCollapse ? 'vtaicon__fold' : 'vtaicon__unfold';
   }
 
   private toggleNav() {
@@ -86,19 +93,6 @@ export default class extends Vue {
     z-index: 10;
     .head__toggle {
       height: 100%;
-      .toggle__icon {
-        width: 28px;
-        height: 28px;
-        text-align: center;
-        line-height: 28px;
-        font-size: 24px;
-        user-select: none;
-        cursor: pointer;
-        color: #6b6b6b;
-        &:hover {
-          color: @primary-color;
-        }
-      }
     }
     .head__icon {
       width: 30px;

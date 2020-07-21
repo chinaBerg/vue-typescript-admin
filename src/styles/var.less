@@ -4,6 +4,16 @@
 /* 主背景色 */
 @primary-bg: #f0f2f5;
 
+/* 头部操作栏高度 */
 @app-head-height: 60px;
 
+/* nav宽度 */
 @aside-width: 240px;
+
+/**
+ * :export指令是webpack提供的用于在js和less中共享变量的功能
+ * https://mattferderer.com/use-sass-variables-in-typescript-and-javascript
+ */
+:export {
+  primaryColor: @primary-color;
+}

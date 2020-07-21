@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   devServer: {
     port: 2219,
@@ -15,6 +17,7 @@ module.exports = {
     // }
   },
   chainWebpack: config => {
+    /** 配置Eslint在代码保存时自动fix */
     config.module
       .rule('eslint')
       .use('eslint-loader')
@@ -24,6 +27,40 @@ module.exports = {
         options.fix = true
         return options
       }).end()
+
+    const iconsPath = path.resolve(__dirname, './src/icons');
+    config.module
+      .rule('svgIcon')
+      .test(/\.(svg)(\?.*)?$/)
+      .include
+      .add(iconsPath)
+      .end()
+      .use('svg-sprite-loader')
+        .loader('svg-sprite-loader')
+        .tap((options) => {
+          options = {
+            symbolId: 'vtaicon__[name]',
+          };
+          return options;
+        })
+      .end()
+      .use('svgo-loader')
+        .loader('svgo-loader')
+        .tap(() => {
+          return {
+            plugins: [
+              { removeXMLNS: true },  // 删除xmlns属性（对于内联svg，默认情况下禁用）
+              { convertStyleToAttrs: true },  // 将css样式转换为svg元素属性
+              { removeUselessStrokeAndFill: true } // 移除不必要的fill和stroke属性
+            ],
+          };
+        });
+
+    config.module
+      .rule('svg')
+      .exclude
+      .add(iconsPath)
+      .end();
   },
   transpileDependencies: [
     'vuex-module-decorators'

@@ -7,7 +7,9 @@ import filters from './filters';
 import './styles/index.less';
 import 'element-ui/lib/theme-chalk/index.css';
 
-Vue.use(filters).use(ElementUI);
+import SvgIcon from './icons/index';
+
+Vue.use(filters).use(ElementUI).use(SvgIcon);
 
 Vue.config.productionTip = false;
 
