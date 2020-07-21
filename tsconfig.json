@@ -36,6 +36,10 @@
     "tests/**/*.tsx",
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/**/*.js",
+    "src/**/*.less",
+    "src/**/*.scss",
+    "src/**/*.sass",
   ]
 }
