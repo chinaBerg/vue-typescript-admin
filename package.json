@@ -1,6 +1,6 @@
 {
   "name": "vue-typescript-admin",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "基于Vue+Ts+ElementUi的RBAC后台管理系统",
   "keywords": [
     "vue-typescript-admin",
