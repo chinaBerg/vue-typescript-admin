@@ -34,7 +34,7 @@
     "element-ui": "^2.13.2",
     "lodash": "^4.17.19",
     "nprogress": "^0.2.0",
-    "qs": "^6.9.4",
+    "qs": "^6.5.3",
     "screenfull": "^5.0.2",
     "utility-types": "^3.10.0",
     "vue": "^2.6.11",
